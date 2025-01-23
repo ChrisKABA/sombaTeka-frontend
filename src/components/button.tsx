@@ -11,7 +11,7 @@ interface Props extends HTMLAttributes<HTMLButtonElement> {
     disabled: boolean
 }
 
-function Button({ bg, textColor, children, fontFamily, width = 'auto', height = 'auto', className, disabled }: Props) {
+function Button({ bg, textColor, children, fontFamily, width = 'auto', height = 'auto', className }: Props) {
   let bgClassName = ""
   switch (bg) {
     case "transparent":
