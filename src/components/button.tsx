@@ -8,9 +8,10 @@ interface Props extends HTMLAttributes<HTMLButtonElement> {
     width?: string;
     height?: string;
     className?: string;
+    disabled: boolean
 }
 
-function Button({ bg, textColor, children, fontFamily, width = 'auto', height = 'auto', className }: Props) {
+function Button({ bg, textColor, children, fontFamily, width = 'auto', height = 'auto', className, disabled }: Props) {
   let bgClassName = ""
   switch (bg) {
     case "transparent":
@@ -40,7 +41,7 @@ function Button({ bg, textColor, children, fontFamily, width = 'auto', height = 
   const fontClassName = fontFamily ? `font-[${fontFamily}]` : '';
 
   return (
-    <button className={` ${bgClassName} ${textColorClassName} ${fontClassName} ${className} `} style={{ width, height }}>
+    <button className={` ${bgClassName} ${textColorClassName} ${fontClassName} ${className} `} style={{ width, height }} disabled={false}>
       {children}
     </button>
   );

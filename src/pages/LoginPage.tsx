@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import InputField from '../components/InputField';
 import Button from '../components/button';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });
+    const [isFormValid, setIsFormValid] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const { email, password } = formData;
+        setIsFormValid(email.trim() !== '' && password.trim() !== '');
+    }, [formData]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -77,8 +83,9 @@ const Login = () => {
                         bg="primaryColor" 
                         textColor="white" 
                         fontFamily="inter" 
-                        className={`group relative flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded hover:bg-primaryColor focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primaryColor ${'opacity-50 cursor-not-allowed'}`}
+                        className={`group relative flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded hover:bg-primaryColor focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primaryColor ${isFormValid ? '' :'opacity-50 cursor-not-allowed'}`}
                         width='100%'
+                        disabled={!isFormValid}
                     >
                         Continue
                     </Button>
@@ -93,7 +100,7 @@ const Login = () => {
                 <div className="flex items-center justify-center">
                     <div className="text-sm">
                         <span className="text-gray-500">Vous n'avez pas de compte ? </span>
-                        <a href="/signup" className="font-medium text-primaryColor hover:text-secondaryColo">
+                        <a href="/signup" className="font-medium text-primaryColor hover:text-secondaryColor">
                             Signup
                         </a>
                     </div>
