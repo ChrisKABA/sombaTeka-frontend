@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import InputField from '../components/InputField';
+import Button from '../components/button';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -71,13 +72,23 @@ const Login = () => {
                     />
                 </div>
                 <div>
-                    <button
+                    <Button
+                        type='submit'
+                        bg="primaryColor" 
+                        textColor="white" 
+                        fontFamily="inter" 
+                        className={`group relative flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded hover:bg-primaryColor focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primaryColor ${'opacity-50 cursor-not-allowed'}`}
+                        width='100%'
+                    >
+                        Continue
+                    </Button>
+                    {/* <button
                         type="submit"
-                        // disabled={isLoading}
+                        disabled={isLoading}
                         className={`group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded text-white bg-primaryColor hover:bg-primaryColor focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primaryColor ${'opacity-50 cursor-not-allowed'}`}
                     >
-                        {/* {isLoading ? 'Connexion...' : 'Continue'} */} Continue
-                    </button>
+                        {isLoading ? 'Connexion...' : 'Continue'} Continue
+                    </button> */}
                 </div>
                 <div className="flex items-center justify-center">
                     <div className="text-sm">
