@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import InputField from '../components/InputField';
-import Button from '../components/Button';
+import CustomButton from '../components/CustomButton';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -78,7 +78,7 @@ const Login = () => {
                     />
                 </div>
                 <div>
-                    <Button
+                    <CustomButton
                         type='submit'
                         bg="primaryColor" 
                         textColor="white" 
@@ -88,7 +88,7 @@ const Login = () => {
                         disabled={!isFormValid}
                     >
                         Continue
-                    </Button>
+                    </CustomButton>
                     {/* <button
                         type="submit"
                         disabled={isLoading}
