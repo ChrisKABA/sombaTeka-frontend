@@ -13,13 +13,14 @@ export default function SearchBar({ categories, onSearch }: SearchBarProps) {
     }
   
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="w-[60%]">
         <div className="flex w-full">
             <select 
             name="category" 
             id="category-select" 
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
+            className="w-[20%] border-r border-borderColor px-4 focus:outline-none focus:border-transparent"
             >
                 <option value="Catégories" disabled>Catégories</option>
                 {categories.map((category) => (
@@ -36,14 +37,16 @@ export default function SearchBar({ categories, onSearch }: SearchBarProps) {
             required={false}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Rechercher Products"
+            className="w-[70%] px-4 focus:outline-none focus:border-transparent"
             />
             <CustomButton
             type='submit'
             bg="secondaryColor" 
             textColor="primaryColor" 
             fontFamily="inter" 
-            width='100%'
+            width='10%'
             disabled={false}
+            className="flex justify-center items-center"
             >
                 <img src="/icon_search.svg" alt="icon de recherche" />
             </CustomButton>
