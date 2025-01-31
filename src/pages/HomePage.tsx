@@ -1,4 +1,5 @@
 import React from 'react';
+import AsideProduit from '../components/AsideProduit';
 // import { useNavigate } from 'react-router-dom'
 
 const HomePage: React.FC = () => {
@@ -10,6 +11,7 @@ const HomePage: React.FC = () => {
             <div>
                 <a href="/login" className='hover:text-secondaryColor'>Se Conneter a Sombateka</a>
             </div>
+            <AsideProduit/>
         </div>
     );
 };
