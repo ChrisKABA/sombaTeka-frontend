@@ -38,8 +38,8 @@ const AsideProduit: React.FC = () => {
     ];
     
     return(
-        <aside className="bg-white w-[259px] h-[473px] font-raleway shadow-sm">
-            <div className="flex justify-between items-center bg-yellow-400 text-black font-semibold h-[50px] px-4">
+        <aside className="bg-white w-[259px] h-[472px] font-raleway shadow-sm">
+            <div className="flex justify-between items-center bg-secondaryColor text-black font-semibold h-[50px] px-4">
                 <h2>Prix en baisse</h2>
                 <div className="flex gap-1">
                     <div className="flex justify-center items-center w-[28px] h-[28px] rounded-[50%] bg-white">

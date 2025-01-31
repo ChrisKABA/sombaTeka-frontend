@@ -35,17 +35,19 @@ const Header: React.FC = () => {
                         <img src="/youtube.svg" alt="icon de youtube" width="15" height='15' />
                     </div>
                     <div className="flex items-center space-x-0 text-grayCustom text-sm">
-                        <div className="flex items-center space-x-2 border-r-2 border-borderColor  px-4 h-[20px]">
-                            <span>$ USD</span>
+                        <div className="flex items-center space-x-2 border-r-2 border-borderColor cursor-pointer  px-4 h-[20px]">
+                            <span className='hover:text-secondaryColor'>$ USD</span>
                             <img src="/arrowDown.svg" alt="icone derouler" width="10" height='10' />
                         </div>
-                        <div className="flex items-center space-x-2 border-r-2 border-borderColor px-4 h-[20px]">
-                            <span>Francais</span>
+                        <div className="flex items-center space-x-2 border-r-2 border-borderColor cursor-pointer px-4 h-[20px]">
+                            <span className='hover:text-secondaryColor'>Francais</span>
                             <img src="/arrowDown.svg" alt="icone derouler" width="10" height='10' />
                         </div>
-                        <div className="flex items-center space-x-2 pl-4 h-[20px]">
+                        <div className="flex items-center space-x-2 pl-4 h-[20px] cursor-pointer">
                             <img src="/profil.svg" alt="icon de gestion de compte" />
-                            <span>Compte</span>
+                            <Link to="/login">
+                                <span className='hover:text-secondaryColor'>Compte</span>
+                            </Link>
                             <img src="/arrowDown.svg" alt="icone derouler" width="10" height='10' />
                         </div>
                     </div>
