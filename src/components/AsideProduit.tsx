@@ -1,57 +1,60 @@
-import React from "react";
-import type { Product } from "../types/ProductType";
+import React, { useState } from 'react';
+import { products } from "./mock/Products";
 import StarRating from "./layouts/StarRating";
 
-const AsideProduit: React.FC = () => {
+interface AsideProduitProps {
+    title?: string
+    showOnlySaleItems?: boolean
+    maxItems?: number
+  }
 
-    const products: Product[] = [
-        {
-            id: 1,
-            name: "Latest Touch",
-            rating: 3,
-            oldPrice: 67.00,
-            currentPrice: 34.90,
-            image: "/imageProduit/phone.png"
-        },
-        {
-            id: 2,
-            name: "Modern Bluetooth",
-            rating: 3,
-            currentPrice: 111.00,
-            image: "/imageProduit/bluetooth.png"
-        },
-        {
-            id: 3,
-            name: "LG Double Dor",
-            rating: 3,
-            oldPrice: 88.00,
-            currentPrice: 45.00,
-            image: "/imageProduit/fridge.jpg"
-        },
-        {
-            id: 4,
-            name: "LED Samsung TV",
-            rating: 3,
-            currentPrice: 101.00,
-            image: "/imageProduit/tv.jpg"
+const AsideProduit: React.FC<AsideProduitProps> = ({
+    
+    title = "Prix en Solde",
+    showOnlySaleItems = true,
+    maxItems = 4,
+}) => {
+    const [currentIndex, setCurrentIndex] = useState(0)
+
+    const filteredProducts = products.filter((product) => !showOnlySaleItems || product.onSale)
+
+    const handleNext = () => {
+        if (currentIndex + maxItems < filteredProducts.length) {
+            setCurrentIndex(currentIndex + maxItems);
         }
-    ];
+    };
+
+    const handlePrev = () => {
+        if (currentIndex > 0) {
+            setCurrentIndex(currentIndex - maxItems);
+        }
+    };
+
+    const visibleProducts = filteredProducts.slice(currentIndex, currentIndex + maxItems);
     
     return(
         <aside className="bg-white w-[259px] h-[472px] font-raleway shadow-sm">
             <div className="flex justify-between items-center bg-secondaryColor text-black font-semibold h-[50px] px-4">
-                <h2>Prix en baisse</h2>
+                <h2>{title}</h2>
                 <div className="flex gap-1">
-                    <div className="flex justify-center items-center w-[28px] h-[28px] rounded-[50%] bg-white">
+                    <button
+                    onClick={handlePrev}
+                    className="flex justify-center items-center w-[28px] h-[28px] rounded-[50%] bg-white cursor-pointer"
+                    disabled={currentIndex === 0}
+                    >
                         <img src="/Icon-preview.svg" alt="" />
-                    </div>
-                    <div className="flex justify-center items-center w-[28px] h-[28px] rounded-[50%] bg-white">
+                    </button>
+                    <button 
+                    onClick={handleNext}
+                    className="flex justify-center items-center w-[28px] h-[28px] rounded-[50%] bg-white cursor-pointer"
+                    disabled={currentIndex + maxItems >= filteredProducts.length}
+                    >
                         <img src="/icon-next.svg" alt="" />
-                    </div>
+                    </button>
                 </div>
             </div>
             <div>
-                {products.map((product) => (
+                {visibleProducts.map((product) => (
                     <div key={product.id} className="flex items-center w-full h-[105.5px] border-b border-grayBacground cursor-pointer">
                         <div>
                             <img 

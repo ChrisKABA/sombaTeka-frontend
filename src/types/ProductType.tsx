@@ -5,4 +5,5 @@ export interface Product {
     oldPrice?: number;
     currentPrice: number;
     image: string;
+    onSale: boolean;
   }
