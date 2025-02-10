@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AsideProduit from '../components/AsideProduit';
 import StarRating from '../components/layouts/StarRating';
 import Carousel from '../components/carousel';
@@ -6,6 +7,7 @@ import { products } from '../components/mock/Products';
 import { partners } from '../components/mock/partners';
 
 const HomePage: React.FC = () => {
+    const navigate = useNavigate();
     const [marketIndex, setMarketIndex] = useState(0);
     const [productsIndex, setProductsIndex] = useState(0);
     const [partnersIndex, setPartnersIndex] = useState(0);
@@ -110,9 +112,10 @@ const HomePage: React.FC = () => {
     const renderProduct = (product: typeof products[0]) => (
         <div
             key={product.id}
-            className="relative group flex flex-col items-center w-[244px] h-[317px] hover:border"
+            className="relative group flex flex-col items-center w-[244px] h-[317px] hover:border cursor-pointer"
             onMouseEnter={() => setHoveredProductId(product.id)}
             onMouseLeave={() => setHoveredProductId(null)}
+            onClick={() => navigate(`/article/${product.id}`)}
         >
             <div className="relative aspect-square mb-3 w-[221px] h-[221px]">
                 <img
@@ -132,7 +135,10 @@ const HomePage: React.FC = () => {
             <div>
                 {hoveredProductId === product.id ? (
                     <button
-                        onClick={() => handleAddToCart(product.id)}
+                        onClick={(e) => {
+                            e.stopPropagation(); 
+                            handleAddToCart(product.id);
+                        }}
                         className="w-[175px] h-[35px] bg-primaryColor text-white text-[12px] py-2 px-4 rounded-md hover:bg-primaryColor/90 transition-colors duration-200"
                     >
                         Ajouter au panier
