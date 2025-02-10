@@ -3,10 +3,12 @@ import AsideProduit from '../components/AsideProduit';
 import StarRating from '../components/layouts/StarRating';
 import Carousel from '../components/carousel';
 import { products } from '../components/mock/Products';
+import { partners } from '../components/mock/partners';
 
 const HomePage: React.FC = () => {
     const [marketIndex, setMarketIndex] = useState(0);
     const [productsIndex, setProductsIndex] = useState(0);
+    const [partnersIndex, setPartnersIndex] = useState(0);
     const [selectedMarket, setSelectedMarket] = useState<number | null>(null);
     const [selectedPlatform, setSelectedPlatform] = useState<'Marcher' | 'Autres'>('Marcher');
     const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
@@ -153,6 +155,19 @@ const HomePage: React.FC = () => {
             </div>
         </div>
     );
+
+    const renderPartner = (partner: typeof partners[0]) => (
+        <div className="flex flex-col items-center justify-center w-[150px] h-[180px] p-4 hover:border hover:border-borderColor transition-all duration-200">
+            <div className="w-[133px] h-[170px]">
+                <img 
+                    src={partner.image} 
+                    alt={partner.name}
+                    className="w-full h-full object-contain"
+                />
+            </div>
+        </div>
+    );
+
     return (
         <div className="bg-bodyBacgound w-full pt-[20px]">
             <div className='max-w-[1270px] m-auto'>
@@ -177,6 +192,12 @@ const HomePage: React.FC = () => {
                 <div className='flex pt-[25px] justify-between'>
                     <div>
                         <AsideProduit/>
+                        <div className='mt-[20px]'>
+                            <AsideProduit/>
+                        </div>
+                        <div className='mt-[20px]'>
+                            <AsideProduit/>
+                        </div>
                     </div>
                     <div>
                         <Carousel
@@ -205,6 +226,19 @@ const HomePage: React.FC = () => {
                                 title="Articles"
                                 containerClassName="flex flex-col justify-center"
                                 itemsContainerClassName="flex flex-wrap bg-white w-[981px] h-[650px] border border-[#E4E4E4] pt-1 pl-[2px]"
+                            />
+                        </div>
+                        <div className='mt-[20px]'>
+                            <Carousel
+                                items={partners}
+                                currentIndex={partnersIndex}
+                                itemsPerPage={6}
+                                renderItem={renderPartner}
+                                onNext={() => setPartnersIndex(prev => prev + 6)}
+                                onPrev={() => setPartnersIndex(prev => prev - 6)}
+                                title="Nos Partenaires"
+                                containerClassName="flex flex-col"
+                                itemsContainerClassName="flex flex-wrap bg-white w-[981px] h-[190px] border border-[#E4E4E4] pt-1 justify-between item-center"
                             />
                         </div>
                     </div>
