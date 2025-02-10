@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
+import { footerData } from '../../data/footerData';
 
 
 interface MainLayoutProps {
@@ -14,7 +15,10 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         <main className="flex-grow">
           {children}
         </main>
-        <Footer />
+        <Footer 
+          contactInfo={footerData.contactInfo}
+          sections={footerData.sections}
+        />
       </div>
     );
   };
