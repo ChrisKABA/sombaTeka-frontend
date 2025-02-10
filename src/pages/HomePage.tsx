@@ -209,7 +209,7 @@ const HomePage: React.FC = () => {
                             onPrev={() => setMarketIndex(prev => prev - 1)}
                             headerButtons={marketHeaderButtons}
                             containerClassName="flex flex-col"
-                            itemsContainerClassName="flex justify-between items-center h-full px-8 bg-white w-[981px] h-[313.2px] border border-[#E4E4E4]"
+                            itemsContainerClassName="flex justify-between items-center h-full px-8 bg-white w-[981px] h-[313.3px] border border-[#E4E4E4]"
                          />
                         <div className='flex justify-between w-[981px] h-[244px] bg-white p-[20px] mt-[20px]'>
                             <img src="/publicite2.png" alt="publicite" className='w-[460px] h-[212px]'/>
@@ -228,7 +228,7 @@ const HomePage: React.FC = () => {
                                 itemsContainerClassName="flex flex-wrap bg-white w-[981px] h-[650px] border border-[#E4E4E4] pt-1 pl-[2px]"
                             />
                         </div>
-                        <div className='mt-[20px]'>
+                        <div className='mt-[20px] mb-[20px]'>
                             <Carousel
                                 items={partners}
                                 currentIndex={partnersIndex}

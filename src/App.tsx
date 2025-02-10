@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import { footerData } from './data/footerData';
 import './App.css'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -18,7 +19,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     <>
       <Header />
       {children}
-      <Footer />
+      <Footer 
+        contactInfo={footerData.contactInfo} 
+        sections={footerData.sections} 
+      />
     </>
   );
 };
