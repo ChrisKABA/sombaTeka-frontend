@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import { footerData } from './data/footerData';
 import { CartProvider } from './context/CartContext';
 import CartPage from './pages/CartPage';
+import SellerDashboard from './pages/SellerDashboard';
 import './App.css'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -41,6 +42,7 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/article/:id" element={<ArticleDetails />} />
               <Route path="/panier" element={<CartPage />} />
+              <Route path="/vendre" element={<SellerDashboard />} />
             </Routes>
           </main>
         </Layout>
