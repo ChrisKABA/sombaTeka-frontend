@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { footerData } from './data/footerData';
 import { CartProvider } from './context/CartContext';
+import CartPage from './pages/CartPage';
 import './App.css'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -39,6 +40,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/article/:id" element={<ArticleDetails />} />
+              <Route path="/panier" element={<CartPage />} />
             </Routes>
           </main>
         </Layout>
