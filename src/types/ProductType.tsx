@@ -9,6 +9,7 @@ export interface Product {
     description: string;
     status: 'published' | 'hidden';
     stock: number;
+    weight: number;
     category: string;
     supplier: string;
   }

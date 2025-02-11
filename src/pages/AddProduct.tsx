@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { products, addProduct } from '../components/mock/Products';
+import type { Product } from '../types/ProductType';
 
 export default function AddProduct() {
   const navigate = useNavigate();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [productData, setProductData] = useState({
     name: '',
     description: '',
@@ -11,13 +15,52 @@ export default function AddProduct() {
     stock: '0.00',
     weight: '0.00',
     category: '',
+    supplier: '',
     isPhysicalProduct: false
   });
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Logique d'ajout de produit à implémenter
-    console.log(productData);
+
+    // Trouver le dernier ID
+    const lastId = Math.max(...products.map(p => p.id));
+
+    // Créer le nouveau produit
+    const newProduct: Product = {
+        id: lastId + 1,
+        name: productData.name,
+        rating: 0,
+        currentPrice: parseFloat(productData.price),
+        oldPrice: parseFloat(productData.oldPrice) || undefined,
+        image: selectedImage || '/defaultProduit.svg',
+        onSale: parseFloat(productData.oldPrice) > 0,
+        description: productData.description,
+        status: "published",
+        stock: parseInt(productData.stock),
+        weight: parseFloat(productData.weight),
+        category: productData.category,
+        supplier: productData.supplier
+      };
+  
+      // Ajouter le produit au tableau
+      addProduct(newProduct);
+      
+      navigate(-1);
   };
 
   return (
@@ -109,10 +152,31 @@ export default function AddProduct() {
                         <label className="block text-lg font-medium mb-4">
                         Image du produit
                         </label>
-                        <div className="border-2 border-dashed rounded-lg p-8 text-center">
-                            <button type="button" className="text-primaryColor hover:text-blue-700">
-                                telecharger un nouveau media
-                            </button>
+                        <div 
+                          onClick={handleImageClick}
+                          className="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer hover:bg-gray-50"
+                        >
+                            {selectedImage ? (
+                              <div className="relative">
+                                <img 
+                                  src={selectedImage} 
+                                  alt="Product preview" 
+                                  className="max-h-64 mx-auto"
+                                />
+                                <p className="mt-2 text-sm text-gray-600">Cliquez pour changer l'image</p>
+                              </div>
+                            ) : (
+                              <button type="button" className="text-primaryColor hover:text-blue-700">
+                                Télécharger un nouveau média
+                              </button>
+                            )}
+                            <input
+                              ref={fileInputRef}
+                              type="file"
+                              accept="image/*"
+                              onChange={handleImageChange}
+                              className="hidden"
+                            />
                         </div>
                     </div>
 
@@ -126,6 +190,19 @@ export default function AddProduct() {
                         onChange={(e) => setProductData({...productData, category: e.target.value})}
                         className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         placeholder="tee-shirt à manche courte"
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <label className="block text-lg font-medium mb-4">
+                        Fournisseur
+                        </label>
+                        <input
+                        type="text"
+                        value={productData.supplier}
+                        onChange={(e) => setProductData({...productData, supplier: e.target.value})}
+                        className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Nom du fournisseur"
                         />
                     </div>
                 </div>

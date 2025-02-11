@@ -1,6 +1,6 @@
 import type { Product } from "../../types/ProductType"
 
-export const products: Product[] = [
+export let products: Product[] = [
   {
     id: 1,
     name: "Collection of Washing Ma…",
@@ -11,6 +11,7 @@ export const products: Product[] = [
     description : "Découvrez notre collection de machines à laver modernes, alliant performance et efficacité énergétique pour un lavage impeccable.",
     status: "published",
     stock: 10,
+    weight: 2,
     category: "Électroménager",
     supplier: "LG",
   },
@@ -25,8 +26,9 @@ export const products: Product[] = [
     description : "Le dernier smartphone à la pointe de la technologie, offrant un design élégant et des fonctionnalités avancées à un prix abordable.",
     status: "published",
     stock: 15,
+    weight: 10,
     category: "Téléphonie",
-    supplier: "Samsung"
+    supplier: "Samsung",
   },
   {
     id: 3,
@@ -39,6 +41,7 @@ export const products: Product[] = [
     description : "Réfrigérateur LG spacieux avec un design élégant, idéal pour garder vos aliments frais tout en ajoutant une touche moderne à votre cuisine.",
     status: "published",
     stock: 15,
+    weight: 20,
     category: "Téléphonie",
     supplier: "Samsung"
   },
@@ -52,6 +55,7 @@ export const products: Product[] = [
     description : "Enceinte Bluetooth moderne offrant un son de haute qualité et une connectivité sans fil pour profiter de votre musique partout.",
     status: "published",
     stock: 5,
+    weight: 1,
     category: "Téléphonie",
     supplier: "Samsung"
   },
@@ -66,6 +70,7 @@ export const products: Product[] = [
     description : "Réfrigérateur à double porte LG, combinant style et fonctionnalité, parfait pour les familles qui ont besoin d'espace de stockage.",
     status: "published",
     stock: 7,
+    weight: 6,
     category: "Frigo",
     supplier: "LG"
 
@@ -81,6 +86,7 @@ export const products: Product[] = [
     description : "Profitez d'une expérience de visionnage immersive avec ce téléviseur LED Samsung, offrant des couleurs vives et des images nettes.",
     status: "published",
     stock: 13,
+    weight: 5,
     category: "Téléphonie",
     supplier: "Samsung"
   },
@@ -95,6 +101,7 @@ export const products: Product[] = [
     description : "Enceinte Bluetooth Sony, idéale pour écouter votre musique préférée avec un son puissant et des basses profondes.",
     status: "published",
     stock: 20,
+    weight: 1,
     category: "Bluetooth",
     supplier: "Sony"
   },
@@ -108,6 +115,7 @@ export const products: Product[] = [
     description : "Plongez dans vos films et émissions préférés avec ce grand écran LED Samsung, offrant une qualité d'image exceptionnelle.",
     status: "published",
     stock: 13,
+    weight: 3,
     category: "Tv",
     supplier: "Samsung"
     
@@ -123,8 +131,15 @@ export const products: Product[] = [
     description : "Casque audio multi-usage, conçu pour un confort optimal et une qualité sonore supérieure, parfait pour les mélomanes.",
     status: "published",
     stock: 10,
+    weight: 1,
     category: "Téléphonie",
     supplier: "Samsung"
   },
 ]
+
+export const addProduct = (newProduct: Product) => {
+  products = [...products, newProduct];
+};
+
+// export { products }
 
