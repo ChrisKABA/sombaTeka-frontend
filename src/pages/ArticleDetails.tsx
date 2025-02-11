@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import StarRating from '../components/layouts/StarRating';
 import { products } from '../components/mock/Products';
+import { Sellers } from '../components/mock/sellers';
 
 const ArticleDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -9,7 +10,9 @@ const ArticleDetails: React.FC = () => {
   
   const product = products.find(p => p.id === Number(id));
 
-  if (!product) {
+  const seller = Sellers.find(s => s.id === (Number(id) % Sellers.length + 1));
+
+  if (!product || !seller) {
     return <div className="text-center py-10">Produit non trouvé</div>;
   }
 
@@ -95,17 +98,27 @@ const ArticleDetails: React.FC = () => {
                 {/* Vendeur Info */}
                 <div className="border-t pt-6">
                     <div className="flex items-center space-x-4">
-                    <img
-                        src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop"
-                        alt="Vendeur"
-                        className="w-12 h-12 rounded-full object-cover"
-                    />
-                    <div>
-                        <h3 className="font-semibold">Dorothee Madiya</h3>
-                        <p className="text-sm text-gray-600">
-                        Passionnée par l'horlogerie, elle saura vous guider dans le choix de la montre parfaite.
-                        </p>
-                    </div>
+                        <img
+                            src={seller.image}
+                            alt={seller.fullName}
+                            className="w-12 h-12 rounded-full object-cover"
+                        />
+                        <div className="flex-1">
+                            <div className="flex items-center justify-between">
+                                <h3 className="font-semibold">{seller.fullName}</h3>
+                                <StarRating rating={seller.rating} />
+                            </div>
+                            <p className="text-sm text-gray-600 mt-1">
+                                {seller.description}
+                            </p>
+                            <div className="flex items-center space-x-4 mt-2 text-sm text-gray-500">
+                                <span>Spécialité: {seller.specialty}</span>
+                                <span>•</span>
+                                <span>Depuis {seller.joinedDate}</span>
+                                <span>•</span>
+                                <span>{seller.totalSales} ventes</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
