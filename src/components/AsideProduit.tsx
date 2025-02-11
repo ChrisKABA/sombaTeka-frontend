@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { products } from "./mock/Products";
 import StarRating from "./layouts/StarRating";
+import { useNavigate } from 'react-router-dom';
 
 interface AsideProduitProps {
     title?: string
@@ -14,6 +15,7 @@ const AsideProduit: React.FC<AsideProduitProps> = ({
     showOnlySaleItems = true,
     maxItems = 4,
 }) => {
+    const navigate = useNavigate();
     const [currentIndex, setCurrentIndex] = useState(0)
 
     const filteredProducts = products.filter((product) => !showOnlySaleItems || product.onSale)
@@ -55,7 +57,10 @@ const AsideProduit: React.FC<AsideProduitProps> = ({
             </div>
             <div>
                 {visibleProducts.map((product) => (
-                    <div key={product.id} className="flex items-center w-full h-[105.5px] border-b border-grayBacground cursor-pointer">
+                    <div key={product.id} 
+                    className="flex items-center w-full h-[105.5px] border-b border-grayBacground cursor-pointer"
+                    onClick={() => navigate(`/article/${product.id}`)}
+                    >
                         <div>
                             <img 
                             src={product.image} 
