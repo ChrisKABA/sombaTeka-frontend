@@ -3,7 +3,8 @@ import { useCart } from '../context/CartContext';
 import { products } from '../components/mock/Products';
 
 const CartPage: React.FC = () => {
-  const { cartItems, totalPrice, removeFromCart, updateQuantity } = useCart();
+//   const { cartItems, totalPrice, removeFromCart, updateQuantity } = useCart();
+  const { cartItems, removeFromCart, updateQuantity } = useCart();
   const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
   const [selectAll, setSelectAll] = useState(false);
 
