@@ -178,7 +178,7 @@ const Dashboard = () => {
 };
 
 export default function SellerDashboard() {
-  const navigate = useNavigate();
+//   const navigate = useNavigate();
   const [activeView, setActiveView] = useState('dashboard');
 
   const renderContent = () => {
