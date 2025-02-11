@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import DashboardSidebar, { MenuItem } from '../components/DashboardSidebar';
 import ProductsList from '../components/ProductsList';
 import { products } from '../components/mock/Products';
