@@ -8,7 +8,11 @@ export const products: Product[] = [
     currentPrice: 115.00,
     image: "/imageProduit/washing.png",
     onSale: false,
-    description : "Découvrez notre collection de machines à laver modernes, alliant performance et efficacité énergétique pour un lavage impeccable."
+    description : "Découvrez notre collection de machines à laver modernes, alliant performance et efficacité énergétique pour un lavage impeccable.",
+    status: "published",
+    stock: 10,
+    category: "Électroménager",
+    supplier: "LG",
   },
   {
     id: 2,
@@ -18,7 +22,11 @@ export const products: Product[] = [
     currentPrice: 34.9,
     image: "/imageProduit/phone.png",
     onSale: true,
-    description : "Le dernier smartphone à la pointe de la technologie, offrant un design élégant et des fonctionnalités avancées à un prix abordable." 
+    description : "Le dernier smartphone à la pointe de la technologie, offrant un design élégant et des fonctionnalités avancées à un prix abordable.",
+    status: "published",
+    stock: 15,
+    category: "Téléphonie",
+    supplier: "Samsung"
   },
   {
     id: 3,
@@ -28,7 +36,11 @@ export const products: Product[] = [
     currentPrice: 88.00,
     image: "/imageProduit/Regifrerator.png",
     onSale: true,
-    description : "Réfrigérateur LG spacieux avec un design élégant, idéal pour garder vos aliments frais tout en ajoutant une touche moderne à votre cuisine."
+    description : "Réfrigérateur LG spacieux avec un design élégant, idéal pour garder vos aliments frais tout en ajoutant une touche moderne à votre cuisine.",
+    status: "published",
+    stock: 15,
+    category: "Téléphonie",
+    supplier: "Samsung"
   },
   {
     id: 4,
@@ -37,7 +49,11 @@ export const products: Product[] = [
     currentPrice: 111.0,
     image: "/imageProduit/bluetooth.png",
     onSale: false,
-    description : "Enceinte Bluetooth moderne offrant un son de haute qualité et une connectivité sans fil pour profiter de votre musique partout."
+    description : "Enceinte Bluetooth moderne offrant un son de haute qualité et une connectivité sans fil pour profiter de votre musique partout.",
+    status: "published",
+    stock: 5,
+    category: "Téléphonie",
+    supplier: "Samsung"
   },
   {
     id: 5,
@@ -47,7 +63,11 @@ export const products: Product[] = [
     currentPrice: 45.0,
     image: "/imageProduit/fridge.jpg",
     onSale: true,
-    description : "Réfrigérateur à double porte LG, combinant style et fonctionnalité, parfait pour les familles qui ont besoin d'espace de stockage."
+    description : "Réfrigérateur à double porte LG, combinant style et fonctionnalité, parfait pour les familles qui ont besoin d'espace de stockage.",
+    status: "published",
+    stock: 7,
+    category: "Frigo",
+    supplier: "LG"
 
   },
   {
@@ -58,7 +78,11 @@ export const products: Product[] = [
     currentPrice: 88.0,
     image: "/imageProduit/tv.jpg",
     onSale: true,
-    description : "Profitez d'une expérience de visionnage immersive avec ce téléviseur LED Samsung, offrant des couleurs vives et des images nettes."
+    description : "Profitez d'une expérience de visionnage immersive avec ce téléviseur LED Samsung, offrant des couleurs vives et des images nettes.",
+    status: "published",
+    stock: 13,
+    category: "Téléphonie",
+    supplier: "Samsung"
   },
   {
     id: 7,
@@ -68,7 +92,11 @@ export const products: Product[] = [
     currentPrice: 80.0,
     image: "/imageProduit/sony-bluetooth.png",
     onSale: true,
-    description : "Enceinte Bluetooth Sony, idéale pour écouter votre musique préférée avec un son puissant et des basses profondes."
+    description : "Enceinte Bluetooth Sony, idéale pour écouter votre musique préférée avec un son puissant et des basses profondes.",
+    status: "published",
+    stock: 20,
+    category: "Bluetooth",
+    supplier: "Sony"
   },
   {
     id: 8,
@@ -77,7 +105,12 @@ export const products: Product[] = [
     currentPrice: 110.00,
     image: "/imageProduit/tv-led.png",
     onSale: false,
-    description : "Plongez dans vos films et émissions préférés avec ce grand écran LED Samsung, offrant une qualité d'image exceptionnelle."
+    description : "Plongez dans vos films et émissions préférés avec ce grand écran LED Samsung, offrant une qualité d'image exceptionnelle.",
+    status: "published",
+    stock: 13,
+    category: "Tv",
+    supplier: "Samsung"
+    
   },
   {
     id: 9,
@@ -87,7 +120,11 @@ export const products: Product[] = [
     currentPrice: 80.0,
     image: "/imageProduit/headphone.png",
     onSale: true,
-    description : "Casque audio multi-usage, conçu pour un confort optimal et une qualité sonore supérieure, parfait pour les mélomanes."
+    description : "Casque audio multi-usage, conçu pour un confort optimal et une qualité sonore supérieure, parfait pour les mélomanes.",
+    status: "published",
+    stock: 10,
+    category: "Téléphonie",
+    supplier: "Samsung"
   },
 ]
 

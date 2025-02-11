@@ -7,4 +7,8 @@ export interface Product {
     image: string;
     onSale: boolean;
     description: string;
+    status: 'published' | 'hidden';
+    stock: number;
+    category: string;
+    supplier: string;
   }
