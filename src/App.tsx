@@ -6,6 +6,7 @@ import ArticleDetails from './pages/ArticleDetails';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { footerData } from './data/footerData';
+import { CartProvider } from './context/CartContext';
 import './App.css'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -30,17 +31,20 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
 function App() {
   return (
-    <Router>
-      <Layout>
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/article/:id" element={<ArticleDetails />} />
-          </Routes>
-        </main>
-      </Layout>
-    </Router>
+    <CartProvider>
+      <Router>
+        <Layout>
+          <main>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/article/:id" element={<ArticleDetails />} />
+            </Routes>
+          </main>
+        </Layout>
+      </Router>
+    </CartProvider>
+    
   );
 }
 

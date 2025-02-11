@@ -2,10 +2,12 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import type { Category } from '../types/categorieType';
 import SearchBar from './SearchBar';
+import { useCart } from '../context/CartContext';
 
 const Header: React.FC = () => {
     const location = useLocation();
     const currentPath = location.pathname;
+    const { totalItems, totalPrice } = useCart();
 
     const categories: Category[] = [
         { id: 1, name: "Electronics", slug: "electronics" },
@@ -58,12 +60,14 @@ const Header: React.FC = () => {
                     <img src="/logosombateka.png" alt="logo de sombateka" className='w-[240px]'/>
                 </Link>
                <SearchBar categories={categories} onSearch={handleSearch} />
-               <Link to="/" className='flex justify-center items-center bg-white w-[10%]'>
+               <Link to="/panier" className='flex justify-center items-center bg-white w-[10%]'>
                     <div className='relative'>
                         <img src="/panier-header.svg" alt="" />
-                        <div className='flex justify-center items-center absolute top-0 right-0 bg-secondaryColor rounded-full text-[11px] w-4 h-4'>O</div>
+                        <div className='flex justify-center items-center absolute top-0 right-0 bg-secondaryColor rounded-full text-[11px] w-4 h-4'>
+                            {totalItems}
+                        </div>
                     </div>
-                    <span className='text-xs'>($O.OO)</span>
+                    <span className='text-xs'>(${totalPrice.toFixed(2)})</span>
                </Link>
             </div>
             <div className='bg-bodyBacgound h-[25px] absolute bottom-0 left-0 w-full'></div>

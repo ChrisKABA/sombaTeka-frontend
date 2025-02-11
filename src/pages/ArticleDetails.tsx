@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import StarRating from '../components/layouts/StarRating';
 import { products } from '../components/mock/Products';
-import { Sellers } from '../components/mock/sellers';
+import { Sellers } from '../components/mock/Sellers';
 
 const ArticleDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();

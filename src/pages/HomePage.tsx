@@ -5,9 +5,11 @@ import StarRating from '../components/layouts/StarRating';
 import Carousel from '../components/carousel';
 import { products } from '../components/mock/Products';
 import { partners } from '../components/mock/partners';
+import { useCart } from '../context/CartContext';
 
 const HomePage: React.FC = () => {
     const navigate = useNavigate();
+    const { addToCart } = useCart();
     const [marketIndex, setMarketIndex] = useState(0);
     const [productsIndex, setProductsIndex] = useState(0);
     const [partnersIndex, setPartnersIndex] = useState(0);
@@ -60,8 +62,7 @@ const HomePage: React.FC = () => {
     }, []);
 
     const handleAddToCart = (productId: number) => {
-        // Logique pour ajouter au panier
-        console.log('Produit ajouté au panier:', productId);
+        addToCart(productId);
     };
 
     const handleMarketSelect = (marketId: number) => {
