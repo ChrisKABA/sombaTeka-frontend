@@ -3,10 +3,12 @@ import { useParams } from 'react-router-dom';
 import StarRating from '../components/layouts/StarRating';
 import { products } from '../components/mock/Products';
 import { Sellers } from '../components/mock/Sellers';
+import { useCart } from '../context/CartContext';
 
 const ArticleDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
   
   const product = products.find(p => p.id === Number(id));
 
@@ -24,10 +26,9 @@ const ArticleDetails: React.FC = () => {
   };
 
   const handleAddToCart = () => {
-    console.log('Ajouter au panier:', {
-      productId: product.id,
-      quantity: quantity
-    });
+    for (let i = 0; i < quantity; i++) {
+      addToCart(product.id);
+    }
   };
 
   return (
