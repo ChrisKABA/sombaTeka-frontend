@@ -48,7 +48,7 @@ const Header: React.FC = () => {
                         <div className="flex items-center space-x-2 pl-4 h-[20px] cursor-pointer">
                             <img src="/profil.svg" alt="icon de gestion de compte" />
                             <Link to="/login">
-                                <span className='hover:text-secondaryColor'>Compte</span>
+                                <span className='hover:text-secondaryColor'>Connexion</span>
                             </Link>
                             <img src="/arrowDown.svg" alt="icone derouler" width="10" height='10' />
                         </div>
