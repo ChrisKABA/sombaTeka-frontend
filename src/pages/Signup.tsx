@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 // import InputField from '../components/InputField';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Signup = () => {
-    const [formData, setFormData] = useState({ email: '', password: '' });
+    const [formData, setFormData] = useState({ email: '', password: '', fullName: '' });
+    const [error, setError] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+    const { signup } = useAuth();
 
     useEffect(() => {
         const { email, password } = formData;
@@ -15,16 +18,18 @@ const Signup = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        setFormData(prev => ({ ...prev, [name]: value }));
+        setError('');
     };
     
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const { email, password } = formData;   
+        const { email, password, fullName } = formData;   
         try {
-            console.log('Signup attempt:', { email, password });
-            navigate('/login');
+            await signup(email, password, fullName);
+            navigate('/');
         } catch (error) {
+            setError('Erreur lors de l\'inscription');
             console.error('Erreur d\'inscription:', error);
         }
     };
@@ -45,10 +50,23 @@ const Signup = () => {
                     Créer votre compte
                 </h2>
                 <p className="text-center text-sm text-gray-500 mb-8">
-                    Gratuit et ne prend qu'une minute 
+                    Gratuit et ne prend qu'une minute
                 </p>
+                {error && <p className="text-red-500 text-sm text-center mb-4">{error}</p>}
                 
                 <form className="space-y-4" onSubmit={handleSubmit}>
+                <div>
+                    <input
+                        type="text"
+                        name="fullName"
+                        required
+                        className="appearance-none relative block w-full px-3 py-2.5 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-primaryColor focus:border-primaryColor focus:z-10 sm:text-sm"
+                        onChange={handleChange}
+                        placeholder="Nom complet"
+                        value={formData.fullName}
+                        />
+                </div>
+
                     <div>
                         <label className="sr-only">
                             Email address

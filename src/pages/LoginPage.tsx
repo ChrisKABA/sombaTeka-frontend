@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import InputField from '../components/InputField';
 import CustomButton from '../components/CustomButton';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });
+    // const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     useEffect(() => {
         const { email, password } = formData;
@@ -16,24 +20,24 @@ const Login = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
+        setError('');
     };
     
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const { email, password } = formData;   
         try {
-            // Ici vous ajouterez la logique de connexion avec votre API
-            console.log('Login attempt:', { email, password });
-            
-            // Simulons une connexion réussie
-            if (email && password) {
-                // Si la connexion est réussie, redirigez vers la page d'accueil
-                navigate('/');
-            }
+            await login(email, password);
+            navigate('/');
         } catch (error) {
+            setError('Identifiants invalides');
             console.error('Erreur de connexion:', error);
         }
     };
+
+    // const togglePasswordVisibility = () => {
+    //     setShowPassword(!showPassword);
+    // };
 
     return (
         <div className='h-screen w-full bg-cover bg-center flex items-center justify-center' style={{ backgroundImage: "url('/bacgroundLogin.png')" }}>

@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { footerData } from './data/footerData';
 import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
 import CartPage from './pages/CartPage';
 import SellerDashboard from './pages/SellerDashboard';
 import AddProduct from './pages/AddProduct';
@@ -35,6 +36,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
 function App() {
   return (
+  <AuthProvider>
     <CartProvider>
       <Router>
         <Layout>
@@ -52,7 +54,7 @@ function App() {
         </Layout>
       </Router>
     </CartProvider>
-    
+  </AuthProvider> 
   );
 }
 

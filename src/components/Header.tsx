@@ -3,11 +3,13 @@ import { Link, useLocation } from 'react-router-dom';
 import type { Category } from '../types/categorieType';
 import SearchBar from './SearchBar';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
 const Header: React.FC = () => {
     const location = useLocation();
     const currentPath = location.pathname;
     const { totalItems, totalPrice } = useCart();
+    const { user, logout } = useAuth();
 
     const categories: Category[] = [
         { id: 1, name: "Electronics", slug: "electronics" },
@@ -23,6 +25,14 @@ const Header: React.FC = () => {
 
     const isActivePath = (path: string) => {
         return currentPath === path ? 'bg-secondaryColor' : '';
+    };
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+        } catch (error) {
+            console.error('Erreur lors de la déconnexion:', error);
+        }
     };
         
     return (
@@ -46,10 +56,24 @@ const Header: React.FC = () => {
                             <img src="/arrowDown.svg" alt="icone derouler" width="10" height='10' />
                         </div>
                         <div className="flex items-center space-x-2 pl-4 h-[20px] cursor-pointer">
-                            <img src="/profil.svg" alt="icon de gestion de compte" />
+                            {/* <img src="/profil.svg" alt="icon de gestion de compte" /> */}
+                            {user ? (
+                            <div className="flex items-center space-x-2">
+                            <img 
+                                src={user.image} 
+                                alt={user.fullName}
+                                className="w-6 h-6 rounded-full"
+                            />
+                            <span className="hover:text-secondaryColor">{user.fullName}</span>
+                            <button onClick={handleLogout} className="text-sm text-gray-500 hover:text-secondaryColor">
+                                Déconnexion
+                            </button>
+                        </div>
+                        ) : (
                             <Link to="/login">
                                 <span className='hover:text-secondaryColor'>Connexion</span>
                             </Link>
+                        )}
                             <img src="/arrowDown.svg" alt="icone derouler" width="10" height='10' />
                         </div>
                     </div>

@@ -7,7 +7,9 @@ export interface LoginData {
   password: string;
 }
 
-export interface SignupData extends LoginData {
+export interface SignupData {
+  email: string;
+  password: string;
   fullName: string;
   image?: string;
 }
@@ -23,7 +25,11 @@ class AuthService {
   async login(data: LoginData) {
     try {
       const response = await axios.post(`${API_URL}/login`, data, {
-        withCredentials: true
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
       });
       return response.data;
     } catch (error) {
@@ -33,8 +39,17 @@ class AuthService {
 
   async signup(data: SignupData) {
     try {
-      const response = await axios.post(`${API_URL}/signup`, data, {
-        withCredentials: true
+      const response = await axios.post(`${API_URL}/signup`, {
+        email: data.email,
+        password: data.password,
+        fullName: data.fullName,
+        image: data.image || 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2080&auto=format&fit=crop'
+      }, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
       });
       return response.data;
     } catch (error) {
@@ -45,7 +60,11 @@ class AuthService {
   async logout() {
     try {
       await axios.post(`${API_URL}/logout`, {}, {
-        withCredentials: true
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
       });
     } catch (error) {
       throw error;
@@ -55,7 +74,11 @@ class AuthService {
   async getCurrentUser() {
     try {
       const response = await axios.get(`${API_URL}/me`, {
-        withCredentials: true
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
       });
       return response.data;
     } catch (error) {
