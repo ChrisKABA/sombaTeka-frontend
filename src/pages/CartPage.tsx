@@ -3,47 +3,46 @@ import { useCart } from '../context/CartContext';
 import { products } from '../components/mock/Products';
 
 const CartPage: React.FC = () => {
-//   const { cartItems, totalPrice, removeFromCart, updateQuantity } = useCart();
   const { cartItems, removeFromCart, updateQuantity } = useCart();
   const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
   const [selectAll, setSelectAll] = useState(false);
 
-  const getProductDetails = (productId: number) => {
-    return products.find(p => p.id === productId);
+  const getProductDetails = (id_produit: number) => {
+    return products.find(p => p.id === id_produit);
   };
 
   const handlePrint = () => {
     window.print();
   };
 
-  const handleRemove = (productId: number) => {
+  const handleRemove = (id_produit: number) => {
     if (window.confirm('Êtes-vous sûr de vouloir supprimer cet article ?')) {
-      removeFromCart(productId);
+      removeFromCart(id_produit);
       setSelectedItems(prev => {
         const newSet = new Set(prev);
-        newSet.delete(productId);
+        newSet.delete(id_produit);
         return newSet;
       });
     }
   };
 
-  const handleQuantityChange = (productId: number, newQuantity: number) => {
+  const handleQuantityChange = (id_produit: number, newQuantity: number) => {
     if (newQuantity >= 1) {
-      updateQuantity(productId, newQuantity);
+      updateQuantity(id_produit, newQuantity);
     }
   };
 
-  const handleQuantityInput = (productId: number, e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleQuantityInput = (id_produit: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
     if (!isNaN(value) && value >= 1) {
-      updateQuantity(productId, value);
+      updateQuantity(id_produit, value);
     }
   };
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectAll(e.target.checked);
     if (e.target.checked) {
-      setSelectedItems(new Set(cartItems.map(item => item.id)));
+      setSelectedItems(new Set(cartItems.map(item => item.id_produit)));
     } else {
       setSelectedItems(new Set());
     }
@@ -67,9 +66,9 @@ const CartPage: React.FC = () => {
 
   const calculateSelectedTotal = () => {
     return cartItems
-      .filter(item => selectedItems.has(item.id))
+      .filter(item => selectedItems.has(item.id_produit))
       .reduce((total, item) => {
-        const product = getProductDetails(item.id);
+        const product = getProductDetails(item.id_produit);
         return total + (product?.currentPrice ?? 0) * item.quantity;
       }, 0);
   };
@@ -78,7 +77,7 @@ const CartPage: React.FC = () => {
     <div className="max-w-[1270px] mx-auto py-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Votre Panier</h1>
-        <button 
+        <button
           onClick={handlePrint}
           className="flex items-center gap-2 px-4 py-2 bg-primaryColor text-white rounded hover:bg-primaryColor/90"
         >
@@ -88,7 +87,7 @@ const CartPage: React.FC = () => {
           Imprimer
         </button>
       </div>
-      
+
       <div className="bg-white rounded-lg shadow print:shadow-none">
         <table className="w-full">
           <thead className="bg-primaryColor/10">
@@ -110,18 +109,18 @@ const CartPage: React.FC = () => {
           </thead>
           <tbody className="divide-y divide-gray-200">
             {cartItems.map(item => {
-              const product = getProductDetails(item.id);
+              const product = getProductDetails(item.id_produit);
               if (!product) return null;
               
               const itemTotal = product.currentPrice * item.quantity;
               
               return (
-                <tr key={item.id}>
+                <tr key={item.id_produit}>
                   <td className="px-4 py-4">
                     <input 
                       type="checkbox" 
-                      checked={selectedItems.has(item.id)}
-                      onChange={() => handleSelectItem(item.id)}
+                      checked={selectedItems.has(item.id_produit)}
+                      onChange={() => handleSelectItem(item.id_produit)}
                       className="rounded border-gray-300" 
                     />
                   </td>
@@ -142,7 +141,7 @@ const CartPage: React.FC = () => {
                     <div className="flex items-center justify-center">
                       <button 
                         className="w-8 h-8 border rounded-l hover:bg-gray-100 transition-colors"
-                        onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                        onClick={() => handleQuantityChange(item.id_produit, item.quantity - 1)}
                       >
                         -
                       </button>
@@ -150,12 +149,12 @@ const CartPage: React.FC = () => {
                         type="number"
                         min="1"
                         value={item.quantity}
-                        onChange={(e) => handleQuantityInput(item.id, e)}
+                        onChange={(e) => handleQuantityInput(item.id_produit, e)}
                         className="w-16 h-8 border-t border-b text-center focus:outline-none focus:ring-1 focus:ring-primaryColor" 
                       />
                       <button 
                         className="w-8 h-8 border rounded-r hover:bg-gray-100 transition-colors"
-                        onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                        onClick={() => handleQuantityChange(item.id_produit, item.quantity + 1)}
                       >
                         +
                       </button>
@@ -163,7 +162,7 @@ const CartPage: React.FC = () => {
                   </td>
                   <td className="px-4 py-4 text-center print:hidden">
                     <button 
-                      onClick={() => handleRemove(item.id)}
+                      onClick={() => handleRemove(item.id_produit)}
                       className="text-black hover:text-gray-700 transition-colors"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

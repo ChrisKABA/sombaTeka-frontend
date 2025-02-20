@@ -21,15 +21,15 @@ const Signup = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
         setError('');
     };
-    
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const { email, password, fullName } = formData;   
         try {
             await signup(email, password, fullName);
             navigate('/');
-        } catch (error) {
-            setError('Erreur lors de l\'inscription');
+        } catch (error: any) {
+            setError(error.message || 'Erreur lors de l\'inscription');
             console.error('Erreur d\'inscription:', error);
         }
     };
@@ -78,6 +78,7 @@ const Signup = () => {
                             className="appearance-none  relative block w-full px-3 py-2.5 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-primaryColor focus:border-primaryColor focus:z-10 sm:text-sm"
                             onChange={handleChange}
                             placeholder="Adresse E-mail"
+                            value={formData.email}
                         />
                     </div>
 
@@ -93,6 +94,7 @@ const Signup = () => {
                                 className="appearance-none  relative block w-full px-3 py-2.5 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-primaryColor focus:border-primaryColor focus:z-10 sm:text-sm"
                                 onChange={handleChange}
                                 placeholder="Mot de passe"
+                                value={formData.password}
                             />
                             <button
                                 type="button"

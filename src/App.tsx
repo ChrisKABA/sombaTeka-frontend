@@ -11,8 +11,9 @@ import { AuthProvider } from './context/AuthContext';
 import CartPage from './pages/CartPage';
 import SellerDashboard from './pages/SellerDashboard';
 import AddProduct from './pages/AddProduct';
-import './App.css'
+import PrivateRoute from './components/PrivateRoute';
 import Signup from './pages/Signup';
+import './App.css'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -46,9 +47,30 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/article/:id" element={<ArticleDetails />} />
-              <Route path="/panier" element={<CartPage />} />
-              <Route path="/vendre" element={<SellerDashboard />} />
-              <Route path="/add-product" element={<AddProduct />} />
+              <Route 
+                path="/panier" 
+                element={
+                  <PrivateRoute>
+                    <CartPage />
+                  </PrivateRoute>
+                } 
+              />
+              <Route 
+                path="/vendre" 
+                element={
+                  <PrivateRoute>
+                    <SellerDashboard />
+                  </PrivateRoute>
+                } 
+              />
+              <Route 
+                path="/add-product" 
+                element={
+                  <PrivateRoute>
+                    <AddProduct />
+                  </PrivateRoute>
+                } 
+              />
             </Routes>
           </main>
         </Layout>

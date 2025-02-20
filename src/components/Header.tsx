@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import type { Category } from '../types/categorieType';
 import SearchBar from './SearchBar';
 import { useCart } from '../context/CartContext';
@@ -7,6 +7,7 @@ import { useAuth } from '../context/AuthContext';
 
 const Header: React.FC = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const currentPath = location.pathname;
     const { totalItems, totalPrice } = useCart();
     const { user, logout } = useAuth();
@@ -30,6 +31,7 @@ const Header: React.FC = () => {
     const handleLogout = async () => {
         try {
             await logout();
+            navigate('/login');
         } catch (error) {
             console.error('Erreur lors de la déconnexion:', error);
         }

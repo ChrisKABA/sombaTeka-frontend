@@ -7,10 +7,18 @@ import { useAuth } from '../context/AuthContext';
 const Login = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });
     // const [showPassword, setShowPassword] = useState(false);
-    const [error, setError] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [debugInfo, setDebugInfo] = useState<any>(null);
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { login, error, clearError, user } = useAuth();
+
+    useEffect(() => {
+        // Rediriger si déjà connecté
+        if (user) {
+          navigate('/');
+        }
+      }, [user, navigate])
 
     useEffect(() => {
         const { email, password } = formData;
@@ -20,21 +28,30 @@ const Login = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
-        setError('');
+        clearError();
+        setDebugInfo(null);
     };
     
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const { email, password } = formData;   
+        if (!isFormValid || isLoading) return;
+            setIsLoading(true);
         try {
-            await login(email, password);
-            navigate('/');
+          const { email, password } = formData;
+          await login(email, password);
+          navigate('/');
         } catch (error) {
-            setError('Identifiants invalides');
-            console.error('Erreur de connexion:', error);
+            // setDebugInfo(error.response?.data?.debug || {
+            //     message: 'Erreur de connexion',
+            //     providedPassword: password,
+            //     error: error.message
+            // });
+          console.error('Erreur de connexion:', error);
+        } finally {
+          setIsLoading(false);
         }
-    };
-
+      };
+   
     // const togglePasswordVisibility = () => {
     //     setShowPassword(!showPassword);
     // };
@@ -49,6 +66,11 @@ const Login = () => {
                     <h1 className="text-xl font-semibold mb-1">Bienvenue !</h1>
                     <p className="text-gray-600 text-sm">Connectez-vous maintenant</p>
                 </div>
+                {error && (
+                    <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                        {error}
+                    </div>
+                )}
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="email" className="sr-only">
@@ -88,9 +110,9 @@ const Login = () => {
                             fontFamily="inter" 
                             className={`group relative flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded hover:bg-primaryColor focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primaryColor ${isFormValid ? '' :'opacity-50 cursor-not-allowed'}`}
                             width='100%'
-                            disabled={!isFormValid}
+                            disabled={!isFormValid || isLoading}
                         >
-                            Continue
+                            {isLoading ? 'Connexion...' : 'Se connecter'}
                         </CustomButton>
                     </div>
                     <div className="flex items-center justify-center">
@@ -125,6 +147,14 @@ const Login = () => {
                         </div>
                     </div>
                 </form>
+                {debugInfo && (
+                    <div className="mb-4 p-3 bg-gray-100 border border-gray-300 rounded text-sm">
+                        <h3 className="font-semibold mb-2">Informations de débogage :</h3>
+                        <pre className="whitespace-pre-wrap break-words">
+                            {JSON.stringify(debugInfo, null, 2)}
+                        </pre>
+                    </div>
+                )}
             </div>
         </div>
     );
